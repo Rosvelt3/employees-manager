@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const TotalCard = ({ label, quantity, icon }) => {
+const InfoCard = ({ label, content, icon }) => {
   const classes = useStyles();
 
   return (
@@ -19,7 +19,7 @@ const TotalCard = ({ label, quantity, icon }) => {
         <CardContent>
           <Typography color="textSecondary" gutterBottom>{label}</Typography>
           <Typography variant="h5" component="h2">
-            {quantity}
+            {content}
           </Typography>
         </CardContent>
       </div>
@@ -30,4 +30,4 @@ const TotalCard = ({ label, quantity, icon }) => {
   )
 }
 
-export default TotalCard;
+export default InfoCard;

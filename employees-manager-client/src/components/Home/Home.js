@@ -1,35 +1,55 @@
 import React from 'react';
-import { Container, Grid, makeStyles } from '@material-ui/core';
+import { Container, Grid, makeStyles, Typography } from '@material-ui/core';
 import { Person, Group, Business } from '@material-ui/icons';
 
-import TotalCard from './TotalCard';
+import InfoCard from './InfoCard';
+import LatestEmployeesTable from './LatestEmployeesTable';
+import LatestDepartmentsTable from './LatestDepartmentsTable';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: 30
   },
-  totalCardIcon: {
+  infoCardIcon: {
     fontSize: 50,
-  }
+  },
+  table: {
+    marginTop: 30
+  },
 }));
 
 const Home = () => {
   const classes = useStyles();
 
   return (
-    <Container>
-      <Grid container spacing={2} className={classes.root}>
+    <Container className={classes.root}>
+      <Grid container spacing={2}>
         <Grid item xs={3}>
-          <TotalCard label="Total Employees" quantity={4000} icon={<Group className={classes.totalCardIcon} color="primary" fontSize="large" />} />
+          <InfoCard label="Total Employees" content={4000} icon={<Group className={classes.infoCardIcon} color="primary" />} />
         </Grid>
         <Grid item xs={3}>
-          <TotalCard label="Last Employee Added" quantity={40} icon={<Person className={classes.totalCardIcon} color="primary" fontSize="large" />} />
+          <InfoCard label="Total Departments" content={40} icon={<Business className={classes.infoCardIcon} color="primary" />} />
         </Grid>
         <Grid item xs={3}>
-          <TotalCard label="Total Departments" quantity={40} icon={<Business className={classes.totalCardIcon} color="primary" fontSize="large" />} />
+          <InfoCard label="Last Employee Added" content="Dianasdafasdfasfsdfasfsd" icon={<Person className={classes.infoCardIcon} color="primary" />} />
         </Grid>
         <Grid item xs={3}>
-          <TotalCard label="Last Department Added" quantity={40} icon={<Business className={classes.totalCardIcon} color="primary" fontSize="large" />} />
+          <InfoCard label="Last Department Added" content="Human Resources" icon={<Business className={classes.infoCardIcon} color="primary" />} />
+        </Grid>
+      </Grid>
+
+      <Grid container spacing={2} className={classes.table}>
+        <Grid item xs={12}>
+          <Typography variant="h5" component="h2">
+            Latest Employees
+          </Typography>
+          <LatestEmployeesTable />
+        </Grid>
+        <Grid item xs={12} className={classes.table}>
+          <Typography variant="h5" component="h2">
+            Latest Departments
+          </Typography>
+          <LatestDepartmentsTable />
         </Grid>
       </Grid>
     </Container>

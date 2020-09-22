@@ -9,8 +9,8 @@ import Navbar from './components/Navbar';
 const App = () => {
   return (
     <>
-      <Navbar />
       <Router>
+      <Navbar />
         <Switch>
           <Route path="/" component={Home} exact></Route>
           <Route path="/employees" component={Employees} />
