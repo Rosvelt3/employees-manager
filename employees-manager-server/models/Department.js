@@ -4,7 +4,8 @@ const DepartmentSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, 'Please add Department name'],
-    maxlength: 60
+    maxlength: 60,
+    unique: true
   },
   description: {
     type: String,
@@ -20,7 +21,8 @@ const DepartmentSchema = new mongoose.Schema({
     type: Number,
     required: [true, 'Please add Department phone extension'],
     min: 1,
-    max: 99999
+    max: 99999,
+    unique: true
   },
   createdAt: {
     type: Date,

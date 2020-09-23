@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Grid, makeStyles, Typography } from '@material-ui/core';
+import { Container, Grid, makeStyles } from '@material-ui/core';
 import { Person, Group, Business } from '@material-ui/icons';
 
 import InfoCard from './InfoCard';

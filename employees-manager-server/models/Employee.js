@@ -1,6 +1,12 @@
 const mongoose = require('mongoose');
 
 const EmployeeSchema = new mongoose.Schema({
+  idNumber: {
+    type: Number,
+    required: [true, 'Please add Employee id number'],
+    max: 99999999999,
+    unique: true
+  },
   name: {
     type: String,
     required: [true, 'Please add Employee name'],
