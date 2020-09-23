@@ -12,10 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
   infoCardIcon: {
     fontSize: 50,
-  },
-  table: {
-    marginTop: 30
-  },
+  }
 }));
 
 const Home = () => {
@@ -31,24 +28,18 @@ const Home = () => {
           <InfoCard label="Total Departments" content={40} icon={<Business className={classes.infoCardIcon} color="primary" />} />
         </Grid>
         <Grid item xs={3}>
-          <InfoCard label="Last Employee Added" content="Dianasdafasdfasfsdfasfsd" icon={<Person className={classes.infoCardIcon} color="primary" />} />
+          <InfoCard label="Last Employee Added" content="Diana" icon={<Person className={classes.infoCardIcon} color="primary" />} />
         </Grid>
         <Grid item xs={3}>
           <InfoCard label="Last Department Added" content="Human Resources" icon={<Business className={classes.infoCardIcon} color="primary" />} />
         </Grid>
       </Grid>
 
-      <Grid container spacing={2} className={classes.table}>
+      <Grid container spacing={2}>
         <Grid item xs={12}>
-          <Typography variant="h5" component="h2">
-            Latest Employees
-          </Typography>
           <LatestEmployeesTable />
         </Grid>
-        <Grid item xs={12} className={classes.table}>
-          <Typography variant="h5" component="h2">
-            Latest Departments
-          </Typography>
+        <Grid item xs={12}>
           <LatestDepartmentsTable />
         </Grid>
       </Grid>

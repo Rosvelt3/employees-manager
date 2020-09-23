@@ -1,11 +1,20 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
+import { Container, makeStyles } from '@material-ui/core';
+import DepartmentsTable from './DepartmentsTable';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    marginTop: 30
+  },
+}));
 
 const Departments = () => {
+  const classes = useStyles();
+
   return (
-    <div className="Departments">
-      <Button color="primary" variant="contained">Departments</Button>
-    </div>
+    <Container className={classes.root}>
+      <DepartmentsTable />
+    </Container>
   )
 }
 

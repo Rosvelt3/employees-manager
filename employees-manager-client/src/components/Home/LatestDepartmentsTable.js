@@ -1,5 +1,11 @@
 import React from 'react';
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
+import { makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    padding: 20
+  }
+}));
 
 function createDepartmentData(name, description, phoneExtension, location) {
   return { name, description, phoneExtension, location };
@@ -13,8 +19,13 @@ const departmentRows = [
 ];
 
 const LatestDepartmentsTable = () => {
+  const classes = useStyles();
+
   return (
-    <TableContainer component={Paper} variant="outlined">
+    <TableContainer className={classes.root} component={Paper} variant="outlined">
+      <Typography variant="h5" component="h2" color="primary">
+        Latest Departments
+      </Typography>
       <Table>
         <TableHead>
           <TableRow>

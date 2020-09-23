@@ -1,11 +1,20 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
+import { Button, Container, makeStyles } from '@material-ui/core';
+import EmployeesTable from './EmployeesTable';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    marginTop: 30
+  },
+}));
 
 const Employees = () => {
+  const classes = useStyles();
+
   return (
-    <div className="Employees">
-      <Button color="primary" variant="contained">Employees</Button>
-    </div>
+    <Container className={classes.root}>
+      <EmployeesTable />
+    </Container>
   )
 }
 
