@@ -1,1 +1,3 @@
-# Employees Manager
+<div align="center">
+  # Employees Manager
+</div>
