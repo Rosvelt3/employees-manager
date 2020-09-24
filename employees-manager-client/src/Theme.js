@@ -1,10 +1,12 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 import { blue, cyan, deepOrange, green, grey, red } from '@material-ui/core/colors';
 
+if (!localStorage.getItem("theme")) localStorage.setItem("theme", "#0d47a1");
+
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: blue[900],
+      main: localStorage.getItem("theme"),
     },
     secondary: {
       main: cyan[700],
@@ -21,7 +23,7 @@ const theme = createMuiTheme({
     success: {
       main: green[600],
     },
-    background:{
+    background: {
       default: grey[100],
     },
   },

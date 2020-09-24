@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button, IconButton, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip, Typography } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Button, IconButton, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Tooltip, Typography } from '@material-ui/core';
 import { Add, Delete, Edit } from '@material-ui/icons';
 import { Link, useHistory } from 'react-router-dom';
 
@@ -17,8 +17,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const DepartmentsTable = ({ departments, handleDelete }) => {
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [page, setPage] = useState(0);
   const history = useHistory();
   const classes = useStyles();
+
+  const handleChangeRowsPerPage = (e) => {
+    setRowsPerPage(parseInt(e.target.value, 10));
+    setPage(0);
+  };
 
   return (
     <TableContainer className={classes.root} component={Paper} elevation={2}>
@@ -39,21 +46,23 @@ const DepartmentsTable = ({ departments, handleDelete }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {departments.length !== 0 ? departments.map(department => (
-            <TableRow key={department._id}>
-              <TableCell>{department.name}</TableCell>
-              <TableCell align="right">{department.description}</TableCell>
-              <TableCell align="right">{department.location}</TableCell>
-              <TableCell align="right">{department.phoneExtension}</TableCell>
-              <TableCell align="right">
-                <Tooltip title="Edit">
-                  <IconButton color="secondary" onClick={() => history.push(`/update-department/${department._id}`)}><Edit /></IconButton>
-                </Tooltip>
-                <Tooltip title="Delete">
-                  <IconButton className={classes.deleteAction} onClick={() => handleDelete(department._id)}><Delete /></IconButton>
-                </Tooltip>
-              </TableCell>
-            </TableRow>))
+          {departments.length !== 0 ? departments
+            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            .map(department => (
+              <TableRow key={department._id}>
+                <TableCell>{department.name}</TableCell>
+                <TableCell align="right">{department.description}</TableCell>
+                <TableCell align="right">{department.location}</TableCell>
+                <TableCell align="right">{department.phoneExtension}</TableCell>
+                <TableCell align="right">
+                  <Tooltip title="Edit">
+                    <IconButton color="secondary" onClick={() => history.push(`/update-department/${department._id}`)}><Edit /></IconButton>
+                  </Tooltip>
+                  <Tooltip title="Delete">
+                    <IconButton className={classes.deleteAction} onClick={() => handleDelete(department._id)}><Delete /></IconButton>
+                  </Tooltip>
+                </TableCell>
+              </TableRow>))
             :
             <TableRow >
               <TableCell colSpan="5">
@@ -63,6 +72,15 @@ const DepartmentsTable = ({ departments, handleDelete }) => {
           }
         </TableBody>
       </Table>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={departments.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onChangePage={(e, newPage) => setPage(newPage)}
+        onChangeRowsPerPage={handleChangeRowsPerPage}
+      />
     </TableContainer>
   )
 }
