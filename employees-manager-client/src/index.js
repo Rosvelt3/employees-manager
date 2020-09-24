@@ -1,17 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import 'normalize.css';
+import { ThemeProvider } from '@material-ui/core';
+import theme from './Theme';
 import Employee, { EmployeeContext } from './hoc/Employees';
 import Department, { DepartmentContext } from './hoc/Departments';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <EmployeeContext.Provider value={new Employee()}>
-      <DepartmentContext.Provider value={new Department()}>
+  <EmployeeContext.Provider value={new Employee()}>
+    <DepartmentContext.Provider value={new Department()}>
+      <ThemeProvider theme={theme}>
         <App />
-      </DepartmentContext.Provider>
-    </EmployeeContext.Provider>
-  </React.StrictMode>,
+      </ThemeProvider>
+    </DepartmentContext.Provider>
+  </EmployeeContext.Provider>,
   document.getElementById('root')
 );

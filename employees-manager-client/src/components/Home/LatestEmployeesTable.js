@@ -8,22 +8,13 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function createEmployeeData(idNumber, name, lastName, phone, department) {
-  return { idNumber, name, lastName, phone, department };
-}
-
-const employeeRows = [
-  createEmployeeData('121-234242343-4', 'Employee 1', 'Last Name', '809000000', 'Department 1'),
-  createEmployeeData('121-234242343-4', 'Employee 2', 'Last Name', '809000000', 'Department 2'),
-  createEmployeeData('121-234242343-4', 'Employee 3', 'Last Name', '809000000', 'Department 3'),
-  createEmployeeData('121-234242343-4', 'Employee 4', 'Last Name', '809000000', 'Department 4'),
-];
-
-const LatestEmployeesTable = () => {
+const LatestEmployeesTable = ({ employees }) => {
   const classes = useStyles();
 
+  if (!employees) return false;
+
   return (
-    <TableContainer className={classes.root} component={Paper} variant="outlined">
+    <TableContainer className={classes.root} component={Paper} elevation={2}>
       <Typography variant="h5" component="h2" color="primary">
         Latest Employees
       </Typography>
@@ -38,15 +29,15 @@ const LatestEmployeesTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {employeeRows.map(row => (
-            <TableRow key={row.name}>
+          {employees.map(employee => (
+            <TableRow key={employee._id}>
               <TableCell component="th" scope="row">
-                {row.idNumber}
+                {employee.idNumber}
               </TableCell>
-              <TableCell align="right">{row.name}</TableCell>
-              <TableCell align="right">{row.lastName}</TableCell>
-              <TableCell align="right">{row.phone}</TableCell>
-              <TableCell align="right">{row.department}</TableCell>
+              <TableCell align="right">{employee.name}</TableCell>
+              <TableCell align="right">{employee.lastName}</TableCell>
+              <TableCell align="right">{employee.phone}</TableCell>
+              <TableCell align="right">{employee.department.name}</TableCell>
             </TableRow>
           ))
           }

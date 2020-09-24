@@ -28,17 +28,16 @@ class Departments {
     }
   }
 
-  async addSingleDepartment(name, description, location, phoneExtension, actions) {
+  async addSingleDepartment(name, description, location, phoneExtension) {
     try {
       const response = await fetch(
         `${this.API}`,
         {
           method: 'post',
-          credentials: 'include',
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify({ name, description, location, phoneExtension, actions })
+          body: JSON.stringify({ name, description, location, phoneExtension })
         }
       )
       if (response.status !== 201 && response.status !== 400) {
@@ -60,7 +59,6 @@ class Departments {
         `${this.API}/${id}`,
         {
           method: 'delete',
-          credentials: 'include'
         }
       );
       if (response.status !== 200) {
@@ -74,17 +72,16 @@ class Departments {
     }
   }
 
-  async updateSingleDepartment(id, name, description, location, phoneExtension, actions) {
+  async updateSingleDepartment(id, name, description, location, phoneExtension) {
     try {
       const response = await fetch(
         `${this.API}/${id}`,
         {
           method: 'put',
-          credentials: 'include',
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify({ name, description, location, phoneExtension, actions })
+          body: JSON.stringify({ name, description, location, phoneExtension })
         }
       )
       if (response.status !== 200) {

@@ -3,26 +3,18 @@ import { makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHe
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    padding: 20
+    padding: 20,
+    marginTop: 30
   }
 }));
 
-function createDepartmentData(name, description, phoneExtension, location) {
-  return { name, description, phoneExtension, location };
-}
-
-const departmentRows = [
-  createDepartmentData('Department 1', 'This is the department 1', '201', 'x Place'),
-  createDepartmentData('Department 2', 'This is the department 2', '202', 'x Place'),
-  createDepartmentData('Department 3', 'This is the department 3', '203', 'x Place'),
-  createDepartmentData('Department 4', 'This is the department 4', '204', 'x Place'),
-];
-
-const LatestDepartmentsTable = () => {
+const LatestDepartmentsTable = ({ departments }) => {
   const classes = useStyles();
 
+  if (!departments) return false;
+
   return (
-    <TableContainer className={classes.root} component={Paper} variant="outlined">
+    <TableContainer className={classes.root} component={Paper} elevation={2}>
       <Typography variant="h5" component="h2" color="primary">
         Latest Departments
       </Typography>
@@ -36,12 +28,12 @@ const LatestDepartmentsTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {departmentRows.map(row => (
-            <TableRow key={row.name}>
-              <TableCell>{row.name}</TableCell>
-              <TableCell align="right">{row.description}</TableCell>
-              <TableCell align="right">{row.location}</TableCell>
-              <TableCell align="right">{row.phoneExtension}</TableCell>
+          {departments.map(department => (
+            <TableRow key={department._id}>
+              <TableCell>{department.name}</TableCell>
+              <TableCell align="right">{department.description}</TableCell>
+              <TableCell align="right">{department.location}</TableCell>
+              <TableCell align="right">{department.phoneExtension}</TableCell>
             </TableRow>
           ))
           }

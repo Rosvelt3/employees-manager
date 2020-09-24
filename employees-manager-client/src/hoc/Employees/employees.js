@@ -1,6 +1,6 @@
 class Employees {
   API = process.env.REACT_APP_API + "/employees";
-
+  
   async getAllEmployees() {
     try {
       const response = await fetch(`${this.API}`);
@@ -28,17 +28,16 @@ class Employees {
     }
   }
 
-  async addSingleEmployee(idNumber, name, description, location, phoneExtension, actions) {
+  async addSingleEmployee(idNumber, name, lastName, phone, department) {
     try {
       const response = await fetch(
         `${this.API}`,
         {
           method: 'post',
-          credentials: 'include',
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify({ idNumber, name, description, location, phoneExtension, actions })
+          body: JSON.stringify({ idNumber, name, lastName, phone, department })
         }
       )
       if (response.status !== 201 && response.status !== 400) {
@@ -59,8 +58,7 @@ class Employees {
       const response = await fetch(
         `${this.API}/${id}`,
         {
-          method: 'delete',
-          credentials: 'include'
+          method: 'delete'
         }
       );
       if (response.status !== 200) {
@@ -74,17 +72,16 @@ class Employees {
     }
   }
 
-  async updateSingleEmployee(id, idNumber, name, description, location, phoneExtension, actions) {
+  async updateSingleEmployee(id, idNumber, name, lastName, phone, department) {
     try {
       const response = await fetch(
         `${this.API}/${id}`,
         {
           method: 'put',
-          credentials: 'include',
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify({ idNumber, name, description, location, phoneExtension, actions })
+          body: JSON.stringify({ idNumber, name, lastName, phone, department })
         }
       )
       if (response.status !== 200) {

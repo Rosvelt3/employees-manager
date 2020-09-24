@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, IconButton, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core';
 import { Add, Delete, Edit } from '@material-ui/icons';
+import { Link } from 'react-router-dom';
 import { withEmployee } from '../../hoc/Employees/context'
 
 const useStyles = makeStyles((theme) => ({
@@ -10,7 +11,10 @@ const useStyles = makeStyles((theme) => ({
   row: {
     display: 'flex',
     justifyContent: 'space-between',
-  }
+  },
+  deleteAction: {
+    color: theme.palette.error.main,
+  },
 }));
 
 const EmployeesTable = ({ employee }) => {
@@ -26,13 +30,23 @@ const EmployeesTable = ({ employee }) => {
     fetchEmployees();
   }, [employee])
 
+  const deleteEmployee = async (id) => {
+    try {
+      const result = await employee.deleteEmployee(id);
+      alert(result);
+    }
+    catch (err) {
+      throw err;
+    }
+  }
+
   return (
-    <TableContainer className={classes.root} component={Paper} variant="outlined">
+    <TableContainer className={classes.root} component={Paper} elevation={2}>
       <div className={classes.row}>
-        <Typography variant="h5" component="h2" color="primary">
+        <Typography variant="h5" component="h1" color="primary">
           Employees
         </Typography>
-        <Button color="primary" variant="contained" startIcon={<Add />}>Add Employee</Button>
+        <Button component={Link} to="/add-employee" color="primary" variant="contained" startIcon={<Add />}>Add Employee</Button>
       </div>
       <Table>
         <TableHead>
@@ -47,17 +61,17 @@ const EmployeesTable = ({ employee }) => {
         </TableHead>
         <TableBody>
           {employees.map(employee => (
-            <TableRow key={employee.idNumber}>
+            <TableRow key={employee._id}>
               <TableCell component="th" scope="row">
                 {employee.idNumber}
               </TableCell>
               <TableCell align="right">{employee.name}</TableCell>
               <TableCell align="right">{employee.lastName}</TableCell>
               <TableCell align="right">{employee.phone}</TableCell>
-              <TableCell align="right">{employee.department}</TableCell>
+              <TableCell align="right">{employee.department.name}</TableCell>
               <TableCell align="right">
-                <IconButton color="primary"><Edit /></IconButton>
-                <IconButton color="secondary"><Delete /></IconButton>
+                <IconButton color="secondary"><Edit /></IconButton>
+                <IconButton className={classes.deleteAction} color="secondary" onClick={() => deleteEmployee(employee._id)}><Delete /></IconButton>
               </TableCell>
             </TableRow>
           ))

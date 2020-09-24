@@ -16,7 +16,7 @@ const Navbar = () => {
   const classes = useStyles();
 
   return (
-    <AppBar position="static" elevation={0}>
+    <AppBar position="static">
       <Container>
         <Toolbar>
           <Typography variant="h6" className={classes.title}>

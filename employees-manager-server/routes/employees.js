@@ -12,7 +12,7 @@ const {
 const Employee = require('../models/Employee');
 
 router.route('/')
-  .get(advancedResults(Employee), getEmployees)
+  .get(advancedResults(Employee, 'department'), getEmployees)
   .post(createEmployee)
 
 router.route('/:id')

@@ -10,7 +10,10 @@ const useStyles = makeStyles((theme) => ({
   row: {
     display: 'flex',
     justifyContent: 'space-between',
-  }
+  },
+  deleteAction: {
+    color: theme.palette.error.main,
+  },
 }));
 
 const DepartmentsTable = ({ department }) => {
@@ -26,10 +29,20 @@ const DepartmentsTable = ({ department }) => {
     fetchDepartments();
   }, [department])
 
+  const deleteDepartment = async (id) => {
+    try {
+      const result = await department.deleteDepartment(id);
+      alert(result);
+    }
+    catch (err) {
+      throw err;
+    }
+  }
+
   return (
-    <TableContainer className={classes.root} component={Paper} variant="outlined">
+    <TableContainer className={classes.root} component={Paper} elevation={2}>
       <div className={classes.row}>
-        <Typography variant="h5" component="h2" color="primary">
+        <Typography variant="h5" component="h1" color="primary">
           Departments
         </Typography>
         <Button color="primary" variant="contained" startIcon={<Add />}>Add Department</Button>
@@ -46,14 +59,14 @@ const DepartmentsTable = ({ department }) => {
         </TableHead>
         <TableBody>
           {departments.map(department => (
-            <TableRow key={department.name}>
+            <TableRow key={department._id}>
               <TableCell>{department.name}</TableCell>
               <TableCell align="right">{department.description}</TableCell>
               <TableCell align="right">{department.location}</TableCell>
               <TableCell align="right">{department.phoneExtension}</TableCell>
               <TableCell align="right">
-                <IconButton color="primary"><Edit /></IconButton>
-                <IconButton color="secondary"><Delete /></IconButton>
+                <IconButton color="secondary"><Edit /></IconButton>
+                <IconButton className={classes.deleteAction} onClick={() => deleteDepartment(department._id)}><Delete /></IconButton>
               </TableCell>
             </TableRow>
           ))

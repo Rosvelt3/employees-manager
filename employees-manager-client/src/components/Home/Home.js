@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Grid, makeStyles } from '@material-ui/core';
 import { Person, Group, Business } from '@material-ui/icons';
+import { withEmployee } from '../../hoc/Employees/context';
+import { withDepartment } from '../../hoc/Departments/context';
 
 import InfoCard from './InfoCard';
 import LatestEmployeesTable from './LatestEmployeesTable';
@@ -15,36 +17,55 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Home = () => {
+const Home = ({ employee, department }) => {
+  const [employees, setEmployees] = useState([]);
+  const [departments, setDepartments] = useState([]);
   const classes = useStyles();
+  const lastEmployeeAdded = employees.length != 0 ? employees[employees.length - 1].name : "None";
+  const lastDepartmentAdded = departments.length != 0 ? departments[departments.length - 1].name : "None";
+
+  useEffect(() => {
+    const fetchDepartments = async () => {
+      const result = await department.getAllDepartments();
+      setDepartments(result);
+    };
+    const fetchEmployees = async () => {
+      const result = await employee.getAllEmployees();
+      setEmployees(result);
+    };
+
+
+    fetchDepartments();
+    fetchEmployees();
+  }, [department, employee])
 
   return (
     <Container className={classes.root}>
-      <Grid container spacing={2}>
+      <Grid container spacing={3}>
         <Grid item xs={3}>
-          <InfoCard label="Total Employees" content={4000} icon={<Group className={classes.infoCardIcon} color="primary" />} />
+          <InfoCard label="Total Employees" content={employees.length} icon={<Group className={classes.infoCardIcon} color="primary" />} />
         </Grid>
         <Grid item xs={3}>
-          <InfoCard label="Total Departments" content={40} icon={<Business className={classes.infoCardIcon} color="primary" />} />
+          <InfoCard label="Total Departments" content={departments.length} icon={<Business className={classes.infoCardIcon} color="primary" />} />
         </Grid>
         <Grid item xs={3}>
-          <InfoCard label="Last Employee Added" content="Diana" icon={<Person className={classes.infoCardIcon} color="primary" />} />
+          <InfoCard label="Last Employee Added" content={lastEmployeeAdded} icon={<Person className={classes.infoCardIcon} color="primary" />} />
         </Grid>
         <Grid item xs={3}>
-          <InfoCard label="Last Department Added" content="Human Resources" icon={<Business className={classes.infoCardIcon} color="primary" />} />
+          <InfoCard label="Last Department Added" content={lastDepartmentAdded} icon={<Business className={classes.infoCardIcon} color="primary" />} />
         </Grid>
       </Grid>
 
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <LatestEmployeesTable />
+          <LatestEmployeesTable employees={employees.reverse().slice(0, 4)} />
         </Grid>
         <Grid item xs={12}>
-          <LatestDepartmentsTable />
+          <LatestDepartmentsTable departments={departments.reverse().slice(0, 4)} />
         </Grid>
       </Grid>
     </Container>
   )
 }
 
-export default Home;
+export default withEmployee(withDepartment(Home));
