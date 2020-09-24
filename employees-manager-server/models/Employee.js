@@ -4,6 +4,7 @@ const EmployeeSchema = new mongoose.Schema({
   idNumber: {
     type: Number,
     required: [true, 'Please add Employee id number'],
+    min: 11111111111,
     max: 99999999999,
     unique: true
   },

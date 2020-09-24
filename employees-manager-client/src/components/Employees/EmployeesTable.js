@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { Button, IconButton, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core';
+import React from 'react';
+import { Button, IconButton, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip, Typography } from '@material-ui/core';
 import { Add, Delete, Edit } from '@material-ui/icons';
-import { Link } from 'react-router-dom';
-import { withEmployee } from '../../hoc/Employees/context'
+import { Link, useHistory } from 'react-router-dom';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,31 +14,12 @@ const useStyles = makeStyles((theme) => ({
   },
   deleteAction: {
     color: theme.palette.error.main,
-  },
+  }
 }));
 
-const EmployeesTable = ({ employee }) => {
-  const [employees, setEmployees] = useState([]);
+const EmployeesTable = ({ employees, deleteEmployee }) => {
+  const history = useHistory();
   const classes = useStyles();
-
-  useEffect(() => {
-    const fetchEmployees = async () => {
-      const result = await employee.getAllEmployees();
-      setEmployees(result);
-    };
-
-    fetchEmployees();
-  }, [employee])
-
-  const deleteEmployee = async (id) => {
-    try {
-      const result = await employee.deleteEmployee(id);
-      alert(result);
-    }
-    catch (err) {
-      throw err;
-    }
-  }
 
   return (
     <TableContainer className={classes.root} component={Paper} elevation={2}>
@@ -60,7 +41,7 @@ const EmployeesTable = ({ employee }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {employees.map(employee => (
+          {employees.length !== 0 ? employees.map(employee => (
             <TableRow key={employee._id}>
               <TableCell component="th" scope="row">
                 {employee.idNumber}
@@ -70,11 +51,20 @@ const EmployeesTable = ({ employee }) => {
               <TableCell align="right">{employee.phone}</TableCell>
               <TableCell align="right">{employee.department.name}</TableCell>
               <TableCell align="right">
-                <IconButton color="secondary"><Edit /></IconButton>
-                <IconButton className={classes.deleteAction} color="secondary" onClick={() => deleteEmployee(employee._id)}><Delete /></IconButton>
+                <Tooltip title="Edit">
+                  <IconButton color="secondary" onClick={() => history.push(`/update-employee/${employee._id}`)}><Edit /></IconButton>
+                </Tooltip>
+                <Tooltip title="Delete">
+                  <IconButton className={classes.deleteAction} onClick={() => deleteEmployee(employee._id)}><Delete /></IconButton>
+                </Tooltip>
+              </TableCell>
+            </TableRow>))
+            :
+            <TableRow >
+              <TableCell colSpan="6">
+                <Typography variant="h5" component="h2" align="center">No employees found</Typography>
               </TableCell>
             </TableRow>
-          ))
           }
         </TableBody>
       </Table>
@@ -82,4 +72,4 @@ const EmployeesTable = ({ employee }) => {
   )
 }
 
-export default withEmployee(EmployeesTable);
+export default EmployeesTable;

@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(2),
   },
+  error: {
+    color: theme.palette.error.main,
+  },
 }));
 
 const NotFound = () => {
@@ -22,7 +25,7 @@ const NotFound = () => {
   return (
     <Container className={classes.root}>
       <Typography variant="h2" component="h1">
-        <Typography variant="h2" component="span" color="secondary">404</Typography> error page not found.
+        <Typography className={classes.error} variant="h2" component="span" >404</Typography> error page not found.
       </Typography>
       <Button component={Link} to="/" className={classes.button}>Go back</Button>
     </Container>

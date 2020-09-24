@@ -7,6 +7,7 @@ import { withDepartment } from '../../hoc/Departments/context';
 import InfoCard from './InfoCard';
 import LatestEmployeesTable from './LatestEmployeesTable';
 import LatestDepartmentsTable from './LatestDepartmentsTable';
+import LoadingBar from '../LoadingBar';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,24 +21,38 @@ const useStyles = makeStyles((theme) => ({
 const Home = ({ employee, department }) => {
   const [employees, setEmployees] = useState([]);
   const [departments, setDepartments] = useState([]);
+  const [loading, setLoading] = useState(true);
   const classes = useStyles();
-  const lastEmployeeAdded = employees.length != 0 ? employees[employees.length - 1].name : "None";
-  const lastDepartmentAdded = departments.length != 0 ? departments[departments.length - 1].name : "None";
+  const lastEmployeeAdded = employees.length !== 0 ? employees[employees.length - 1].name : "None";
+  const lastDepartmentAdded = departments.length !== 0 ? departments[departments.length - 1].name : "None";
 
   useEffect(() => {
     const fetchDepartments = async () => {
       const result = await department.getAllDepartments();
       setDepartments(result);
     };
+
     const fetchEmployees = async () => {
       const result = await employee.getAllEmployees();
       setEmployees(result);
     };
 
+    const fetchAll = async () => {
+      try {
+        await fetchDepartments();
+        await fetchEmployees();
+        setLoading(false);
+      }
+      catch (err) {
+        setLoading(false);
+        throw err;
+      }
+    };
 
-    fetchDepartments();
-    fetchEmployees();
+    fetchAll()
   }, [department, employee])
+
+  if (loading) return <LoadingBar></LoadingBar>;
 
   return (
     <Container className={classes.root}>

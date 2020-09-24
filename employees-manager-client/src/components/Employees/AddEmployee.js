@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Container, FormControl, Grid, makeStyles, MenuItem, TextField } from '@material-ui/core';
-import { AccountCircleRounded, Add } from '@material-ui/icons';
+import { Button, Card, CircularProgress, Container, Dialog, DialogActions, DialogContent, DialogTitle, Grid, makeStyles, MenuItem, TextField } from '@material-ui/core';
+import { AccountCircleRounded, Add, Check } from '@material-ui/icons';
 import { withEmployee } from '../../hoc/Employees/context';
 import { withDepartment } from '../../hoc/Departments/context';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,8 +19,11 @@ const useStyles = makeStyles((theme) => ({
     '& .MuiGrid-item': {
       textAlign: 'center',
     },
+    '& .MuiCircularProgress-root': {
+      marginTop: theme.spacing(5),
+    },
   },
-  icon: {
+  formIcon: {
     fontSize: 80,
   },
   card: {
@@ -27,6 +31,13 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     margin: 'auto'
   },
+  dialog: {
+    textAlign: 'center',
+  },
+  dialogIcon: {
+    color: theme.palette.success.main,
+    fontSize: 80
+  }
 }));
 
 const AddEmployee = ({ employee, department }) => {
@@ -36,27 +47,49 @@ const AddEmployee = ({ employee, department }) => {
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [showDialog, setShowDialog] = useState(false);
   const classes = useStyles();
+  const history = useHistory();
 
   useEffect(() => {
     const fetchDepartments = async () => {
       const result = await department.getAllDepartments();
-      setDepartments(result);
-    };
 
+      if (result.length === 0) {
+        alert("There are no departments to add employees to");
+        history.push("/employees");
+      };
+
+      setDepartments(result);
+      setLoading(false);
+    };
     fetchDepartments();
-  }, [department])
+  }, [department, history])
 
   const addEmployee = async () => {
+    setLoading(true);
     try {
-      const result = await employee.addSingleEmployee(idNumber, name, lastName, phone, selectedDepartment);
-      alert(result);
+      await employee.addSingleEmployee(idNumber, name, lastName, phone, selectedDepartment);
+      setLoading(false);
+      emptyFields();
+      setShowDialog(true);
     }
     catch (err) {
+      setLoading(false);
       throw err;
     }
   }
 
+  const emptyFields = () =>{
+    setSelectedDepartment("");
+    setIdNumber(0);
+    setName("");
+    setLastName("");
+    setPhone("");
+    setSelectedDepartment("");
+  }
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     addEmployee();
@@ -67,10 +100,10 @@ const AddEmployee = ({ employee, department }) => {
       <form onSubmit={handleSubmit} noValidate autoComplete="off" className={classes.root}>
         <Grid container component={Card} className={classes.card}>
           <Grid item xs={12}>
-            <AccountCircleRounded className={classes.icon} color="primary" />
+            <AccountCircleRounded className={classes.formIcon} color="primary" />
           </Grid>
           <Grid item xs={12}>
-            <TextField variant="outlined" label="ID Number" value={idNumber} onChange={(e) => setIdNumber(e.target.value)}></TextField>
+            <TextField variant="outlined" label="ID Number" type="number" value={idNumber} onChange={(e) => setIdNumber(e.target.value)}></TextField>
           </Grid>
           <Grid item xs={12}>
             <TextField variant="outlined" label="Name" value={name} onChange={(e) => { setName(e.target.value) }}></TextField>
@@ -97,10 +130,26 @@ const AddEmployee = ({ employee, department }) => {
             </TextField>
           </Grid>
           <Grid item xs={12}>
-            <Button type="submit" color="primary" variant="contained" startIcon={<Add />}>Add Employee</Button>
+            {
+              loading ?
+                <CircularProgress color="primary" />
+                :
+                <Button type="submit" color="primary" variant="contained" startIcon={<Add />}>Add Employee</Button>
+            }
           </Grid>
         </Grid>
       </form>
+      <Dialog className={classes.dialog} open={showDialog}>
+        <DialogTitle>Employee added succesfully</DialogTitle>
+        <DialogContent>
+          <Check className={classes.dialogIcon} />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setShowDialog(false)} color="primary">
+            Close
+        </Button>
+        </DialogActions>
+      </Dialog>
     </Container >
   )
 }

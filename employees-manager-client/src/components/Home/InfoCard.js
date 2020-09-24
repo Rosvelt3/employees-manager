@@ -7,9 +7,6 @@ const useStyles = makeStyles((theme) => ({
     flexFlow: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  content: {
-
   }
 }));
 
@@ -22,7 +19,7 @@ const InfoCard = ({ label, content, icon }) => {
         <CardContent>
           <Typography color="textSecondary" gutterBottom>{label}</Typography>
           <Typography className={classes.content} variant="h5" component="h2">
-            {content.length > 10 ? content.substr(0, 11) + "..." : content}
+            {content.length > 11 ? content.substr(0, 11) + "..." : content}
           </Typography>
         </CardContent>
       </div>

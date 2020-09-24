@@ -29,7 +29,7 @@ const LatestEmployeesTable = ({ employees }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {employees.map(employee => (
+          {employees.length !== 0 ? employees.map(employee => (
             <TableRow key={employee._id}>
               <TableCell component="th" scope="row">
                 {employee.idNumber}
@@ -40,6 +40,12 @@ const LatestEmployeesTable = ({ employees }) => {
               <TableCell align="right">{employee.department.name}</TableCell>
             </TableRow>
           ))
+            :
+            <TableRow >
+              <TableCell colSpan="5">
+                <Typography variant="h5" component="h2" align="center">No employees found</Typography>
+              </TableCell>
+            </TableRow>
           }
         </TableBody>
       </Table>

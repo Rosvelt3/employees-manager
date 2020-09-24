@@ -11,8 +11,6 @@ const useStyles = makeStyles((theme) => ({
 const LatestDepartmentsTable = ({ departments }) => {
   const classes = useStyles();
 
-  if (!departments) return false;
-
   return (
     <TableContainer className={classes.root} component={Paper} elevation={2}>
       <Typography variant="h5" component="h2" color="primary">
@@ -28,14 +26,19 @@ const LatestDepartmentsTable = ({ departments }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {departments.map(department => (
+          {departments.length !== 0 ? departments.map(department => (
             <TableRow key={department._id}>
               <TableCell>{department.name}</TableCell>
               <TableCell align="right">{department.description}</TableCell>
               <TableCell align="right">{department.location}</TableCell>
               <TableCell align="right">{department.phoneExtension}</TableCell>
+            </TableRow>))
+            :
+            <TableRow >
+              <TableCell colSpan="4">
+                <Typography variant="h5" component="h2" align="center">No departments found</Typography>
+              </TableCell>
             </TableRow>
-          ))
           }
         </TableBody>
       </Table>

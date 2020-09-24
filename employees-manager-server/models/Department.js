@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Employee = require('./Employee');
 
 const DepartmentSchema = new mongoose.Schema({
   name: {
@@ -28,6 +29,11 @@ const DepartmentSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
+});
+
+DepartmentSchema.pre('remove', async function (next) {
+  await Employee.deleteMany({ department: this._id });
+  next();
 });
 
 module.exports = mongoose.model('Department', DepartmentSchema);

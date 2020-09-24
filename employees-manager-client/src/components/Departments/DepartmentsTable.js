@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Button, IconButton, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core';
+import React from 'react';
+import { Button, IconButton, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip, Typography } from '@material-ui/core';
 import { Add, Delete, Edit } from '@material-ui/icons';
-import { withDepartment } from '../../hoc/Departments/context';
+import { Link, useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,28 +16,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DepartmentsTable = ({ department }) => {
-  const [departments, setDepartments] = useState([]);
+const DepartmentsTable = ({ departments, handleDelete }) => {
+  const history = useHistory();
   const classes = useStyles();
-
-  useEffect(() => {
-    const fetchDepartments = async () => {
-      const result = await department.getAllDepartments();
-      setDepartments(result);
-    };
-
-    fetchDepartments();
-  }, [department])
-
-  const deleteDepartment = async (id) => {
-    try {
-      const result = await department.deleteDepartment(id);
-      alert(result);
-    }
-    catch (err) {
-      throw err;
-    }
-  }
 
   return (
     <TableContainer className={classes.root} component={Paper} elevation={2}>
@@ -45,7 +26,7 @@ const DepartmentsTable = ({ department }) => {
         <Typography variant="h5" component="h1" color="primary">
           Departments
         </Typography>
-        <Button color="primary" variant="contained" startIcon={<Add />}>Add Department</Button>
+        <Button component={Link} to="/add-department" color="primary" variant="contained" startIcon={<Add />}>Add Department</Button>
       </div>
       <Table>
         <TableHead>
@@ -58,18 +39,27 @@ const DepartmentsTable = ({ department }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {departments.map(department => (
+          {departments.length !== 0 ? departments.map(department => (
             <TableRow key={department._id}>
               <TableCell>{department.name}</TableCell>
               <TableCell align="right">{department.description}</TableCell>
               <TableCell align="right">{department.location}</TableCell>
               <TableCell align="right">{department.phoneExtension}</TableCell>
               <TableCell align="right">
-                <IconButton color="secondary"><Edit /></IconButton>
-                <IconButton className={classes.deleteAction} onClick={() => deleteDepartment(department._id)}><Delete /></IconButton>
+                <Tooltip title="Edit">
+                  <IconButton color="secondary" onClick={() => history.push(`/update-department/${department._id}`)}><Edit /></IconButton>
+                </Tooltip>
+                <Tooltip title="Delete">
+                  <IconButton className={classes.deleteAction} onClick={() => handleDelete(department._id)}><Delete /></IconButton>
+                </Tooltip>
+              </TableCell>
+            </TableRow>))
+            :
+            <TableRow >
+              <TableCell colSpan="5">
+                <Typography variant="h5" component="h2" align="center">No departments found</Typography>
               </TableCell>
             </TableRow>
-          ))
           }
         </TableBody>
       </Table>
@@ -77,4 +67,4 @@ const DepartmentsTable = ({ department }) => {
   )
 }
 
-export default withDepartment(DepartmentsTable);
+export default DepartmentsTable;
