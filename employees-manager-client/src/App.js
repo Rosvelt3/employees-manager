@@ -11,6 +11,7 @@ import AddDepartment from './components/Departments/AddDepartment';
 import UpdateDepartment from './components/Departments/UpdateDepartment';
 import Navbar from './components/Navbar';
 import NotFound from './components/Notfound';
+import ThemePage from './components/ThemePage';
 
 const App = () => {
   return (
@@ -28,6 +29,8 @@ const App = () => {
           <Route path="/departments" component={Departments} exact />
           <Route path="/add-department" component={AddDepartment} exact />
           <Route path="/update-department/:id" component={UpdateDepartment} exact />
+
+          <Route path="/theme" component={ThemePage} exact />
 
           <Route path="*" component={NotFound} />
         </Switch>

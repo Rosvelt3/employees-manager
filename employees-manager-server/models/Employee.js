@@ -2,11 +2,12 @@ const mongoose = require('mongoose');
 
 const EmployeeSchema = new mongoose.Schema({
   idNumber: {
-    type: Number,
+    type: String,
     required: [true, 'Please add Employee id number'],
-    min: 11111111111,
-    max: 99999999999,
-    unique: true
+    match: [
+      /^[0-9]{11}$/,
+      'Please add a valid Employee id numberr'
+    ]
   },
   name: {
     type: String,
@@ -21,7 +22,6 @@ const EmployeeSchema = new mongoose.Schema({
   phone: {
     type: String,
     required: [true, 'Please add Employee phone'],
-    unique: true,
     match: [
       /^[0-9]{10}$/,
       'Please add a valid Employee phone number'

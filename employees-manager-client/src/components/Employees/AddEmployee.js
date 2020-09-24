@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: theme.spacing(8),
     '& .MuiTextField-root': {
-      marginTop: theme.spacing(4),
+      marginTop: theme.spacing(3),
       width: '40ch',
       textAlign: 'left',
     },
@@ -46,11 +46,12 @@ const useStyles = makeStyles((theme) => ({
 
 const AddEmployee = ({ employee, department }) => {
   const [departments, setDepartments] = useState([]);
-  const [idNumber, setIdNumber] = useState(0);
+  const [idNumber, setIdNumber] = useState("");
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
+  const [validationErrors, setValidationErrors] = useState({});
   const [loading, setLoading] = useState(true);
   const [showDialog, setShowDialog] = useState(false);
   const [showErrorDialog, setShowErrorDialog] = useState(false);
@@ -87,16 +88,39 @@ const AddEmployee = ({ employee, department }) => {
 
   const emptyFields = () => {
     setSelectedDepartment("");
-    setIdNumber(0);
+    setIdNumber("");
     setName("");
     setLastName("");
     setPhone("");
     setSelectedDepartment("");
   }
 
+  const validate = () => {
+    const tempValidationErrors = {};
+
+    if (idNumber.trim()) {
+      if (idNumber.match(/^[0-9]{11}$/) === null) tempValidationErrors.idNumber = "ID Number must be 11 digits (no hyphens)";
+    } else tempValidationErrors.idNumber = "Fill this field";
+
+    if (!name.trim()) tempValidationErrors.name = "Fill this field";
+
+    if (!lastName.trim()) tempValidationErrors.lastName = "Fill this field";
+
+    if (phone.trim()) {
+      if (phone.match(/^[0-9]{10}$/) === null) tempValidationErrors.phone = "Phone number must be 10 digits (no hyphens)";
+    } else tempValidationErrors.phone = "Fill this field";
+
+    if (!selectedDepartment.trim()) tempValidationErrors.selectedDepartment = "Fill this field";
+
+    setValidationErrors(tempValidationErrors);
+    return Object.keys(tempValidationErrors).length === 0;
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    addEmployee();
+    if (validate()) {
+      addEmployee();
+    }
   }
 
   return (
@@ -107,21 +131,23 @@ const AddEmployee = ({ employee, department }) => {
             <AccountCircleRounded className={classes.formIcon} color="primary" />
           </Grid>
           <Grid item xs={12}>
-            <TextField variant="outlined" label="ID Number" type="number" value={idNumber} onChange={(e) => setIdNumber(e.target.value)}></TextField>
+            <TextField error={validationErrors.idNumber ? true : false} helperText={validationErrors.idNumber} variant="outlined" label="ID Number" value={idNumber} onChange={(e) => setIdNumber(e.target.value)}></TextField>
           </Grid>
           <Grid item xs={12}>
-            <TextField variant="outlined" label="Name" value={name} onChange={(e) => { setName(e.target.value) }}></TextField>
+            <TextField error={validationErrors.name ? true : false} helperText={validationErrors.name} variant="outlined" label="Name" value={name} onChange={(e) => { setName(e.target.value) }}></TextField>
           </Grid>
           <Grid item xs={12}>
-            <TextField variant="outlined" label="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)}></TextField>
+            <TextField error={validationErrors.lastName ? true : false} helperText={validationErrors.lastName} variant="outlined" label="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)}></TextField>
           </Grid>
           <Grid item xs={12}>
-            <TextField variant="outlined" label="Phone" value={phone} onChange={(e) => setPhone(e.target.value)}></TextField>
+            <TextField error={validationErrors.phone ? true : false} helperText={validationErrors.phone} variant="outlined" label="Phone" value={phone} onChange={(e) => setPhone(e.target.value)}></TextField>
           </Grid>
           <Grid item xs={12}>
 
             <TextField
               select
+              error={validationErrors.selectedDepartment ? true : false}
+              helperText={validationErrors.selectedDepartment}
               variant="outlined"
               label="Department"
               id="department-select"
