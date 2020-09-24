@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card, CircularProgress, Container, Dialog, DialogActions, DialogContent, DialogTitle, Grid, makeStyles, MenuItem, TextField } from '@material-ui/core';
-import { AccountCircleRounded, Add, Check } from '@material-ui/icons';
+import { AccountCircleRounded, Add, Check, ErrorOutline } from '@material-ui/icons';
 import { withEmployee } from '../../hoc/Employees/context';
 import { withDepartment } from '../../hoc/Departments/context';
 import { useHistory } from 'react-router-dom';
@@ -37,6 +37,10 @@ const useStyles = makeStyles((theme) => ({
   dialogIcon: {
     color: theme.palette.success.main,
     fontSize: 80
+  },
+  dialogIconError: {
+    color: theme.palette.error.main,
+    fontSize: 80
   }
 }));
 
@@ -49,6 +53,7 @@ const AddEmployee = ({ employee, department }) => {
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [loading, setLoading] = useState(true);
   const [showDialog, setShowDialog] = useState(false);
+  const [showErrorDialog, setShowErrorDialog] = useState(false);
   const classes = useStyles();
   const history = useHistory();
 
@@ -57,8 +62,7 @@ const AddEmployee = ({ employee, department }) => {
       const result = await department.getAllDepartments();
 
       if (result.length === 0) {
-        alert("There are no departments to add employees to");
-        history.push("/employees");
+        setShowErrorDialog(true);
       };
 
       setDepartments(result);
@@ -81,7 +85,7 @@ const AddEmployee = ({ employee, department }) => {
     }
   }
 
-  const emptyFields = () =>{
+  const emptyFields = () => {
     setSelectedDepartment("");
     setIdNumber(0);
     setName("");
@@ -89,7 +93,7 @@ const AddEmployee = ({ employee, department }) => {
     setPhone("");
     setSelectedDepartment("");
   }
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     addEmployee();
@@ -139,6 +143,7 @@ const AddEmployee = ({ employee, department }) => {
           </Grid>
         </Grid>
       </form>
+
       <Dialog className={classes.dialog} open={showDialog}>
         <DialogTitle>Employee added succesfully</DialogTitle>
         <DialogContent>
@@ -146,6 +151,18 @@ const AddEmployee = ({ employee, department }) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setShowDialog(false)} color="primary">
+            Close
+        </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog className={classes.dialog} open={showErrorDialog}>
+        <DialogTitle>There are no departments to add employees to</DialogTitle>
+        <DialogContent>
+          <ErrorOutline className={classes.dialogIconError} />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => history.push("/employees")} color="primary">
             Close
         </Button>
         </DialogActions>

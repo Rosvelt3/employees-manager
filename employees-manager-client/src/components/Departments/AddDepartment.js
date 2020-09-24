@@ -52,6 +52,7 @@ const AddDepartment = ({ department }) => {
     try {
       await department.addSingleDepartment(name, description, location, phoneExtension);
       setLoading(false);
+      emptyFields();
       setShowDialog(true);
     }
     catch (err) {
