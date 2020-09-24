@@ -1,6 +1,6 @@
 class Employees {
   API = process.env.REACT_APP_API + "/employees";
-  
+
   async getAllEmployees() {
     try {
       const response = await fetch(`${this.API}`);
