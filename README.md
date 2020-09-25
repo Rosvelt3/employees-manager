@@ -42,7 +42,19 @@ The `employees-manager-server` folder contains:
 # How to run this app
 
 ## Prerequisites
-+ This repository downloaded and extracted from the ZIP archive, you can get it from [here](https://github.com/isaias005/employees-manager/archive/master.zip).
++ The code from this repository, you can get it from [here](https://github.com/isaias005/employees-manager/archive/master.zip). Download and extract.
 + NodeJS and NPM installed, you can get them from [here](https://nodejs.org/). Download and install.
 
 ## Explanation
+1. Go to the folder that was generated from the ZIP archive that you downloaded and extracted.
+2. Go to the `employees-manager-server` folder.
+3. Type `cmd` on the address bar of the file explorer to open a a terminal window (this only works on the Windows operative system). If you are on Linux right click on the file explorer and click on "Open Terminal". And if you are on macOS open the Terminal normally and drag the folder to the terminal.
+4. Run this command from the terminal (you can copy and paste it).
+    ```bash
+    npm install && npm start
+    ```
+5. Without closing the terminal, use your file explorer to go to the `employees-manager-client` folder.
+6. Repeat step 3 to open another terminal in this folder.
+7. Run the same command from step 4.
+8. Don't close any of the terminal windows and wait for a browser window to appear, or open a browser window manually and go to the address http://localhost:3000/ (You may have to wait until the terminal windows finish processing the application before you can see anything).
+9. The app should be open on your browser and fully functional.
