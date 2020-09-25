@@ -14,7 +14,7 @@
 
 # Code Explanation
 
-The code is divided into two folders, `employees-manager-client` (the React app) and `employees-manager-server` (NodeJS and Express app).
+The code is divided into two folders, `employees-manager-client` (React app) and `employees-manager-server` (NodeJS and Express app).
 
 ```bash
 ├── employees-manager-client
@@ -24,7 +24,7 @@ The code is divided into two folders, `employees-manager-client` (the React app)
 
 The `employees-manager-client` folder contains:
 
-+ The `public` folder which contains the html file used by React as an entrypoint.
++ The `public` folder which contains the html file used by React as an entry point.
 + The `src` folder which is the main folder of the React app. It contains the `components` folder which contains all the components used in the client application. It also contains the `hoc` folder, which is used to store the components (**h**igher **o**rder **c**omponents) that provide other components services to connect to the api. And lastly this folder also contains the `App.js` and `Index.js` files. `App.js` being the main component of the application and `Index.js` containing the code that describes the entrypoint of the application.
 + The `.env.development.local` file that has the API URL used in all the request to the server.
 
@@ -46,3 +46,4 @@ The `employees-manager-server` folder contains:
 + NodeJS and NPM installed, you can get them from [here](https://nodejs.org/). Download and install.
 
 ## Explanation
+

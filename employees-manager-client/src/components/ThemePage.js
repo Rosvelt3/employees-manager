@@ -64,7 +64,7 @@ const Theme = () => {
       <Card elevation={2}>
         <CardContent>
           <Typography component="h5" variant="h5" color="primary">
-            Select the color used for menus and buttons.
+            Select the main color used on the app
           </Typography>
           <RadioGroup row value={selectedColor} onChange={(e) => setSelectedColor(e.target.value)}>
             <Grid className={classes.colorContainer} container spacing={1}>
