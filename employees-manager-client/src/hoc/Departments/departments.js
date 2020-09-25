@@ -1,3 +1,4 @@
+//Department service class
 class Departments {
   API = process.env.REACT_APP_API + "/departments";
 

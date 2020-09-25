@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-//Some defaults for the styles of the app
+//Some defaults styles for the app
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 //Import the components for the different routes

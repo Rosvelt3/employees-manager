@@ -53,6 +53,7 @@ const AddDepartment = ({ department }) => {
     try {
       await department.addSingleDepartment(name, description, location, phoneExtension);
       setLoading(false);
+      //If everything is right empty the fields
       emptyFields();
       setShowDialog(true);
     }
@@ -117,6 +118,7 @@ const AddDepartment = ({ department }) => {
           </Grid>
           <Grid item xs={12}>
             {
+              //If Loading show circular progress instead of button
               loading ?
                 <CircularProgress color="primary" />
                 :
@@ -125,6 +127,10 @@ const AddDepartment = ({ department }) => {
           </Grid>
         </Grid>
       </form>
+
+      {
+        /*Success Dialog*/
+      }
       <Dialog className={classes.dialog} open={showDialog}>
         <DialogTitle>Department added succesfully</DialogTitle>
         <DialogContent>

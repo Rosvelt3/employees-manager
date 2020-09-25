@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   row: {
     display: 'flex',
     justifyContent: 'space-between',
-    [theme.breakpoints.down('xs')]:{
+    [theme.breakpoints.down('xs')]: {
       flexFlow: 'column',
       alignItems: 'center',
       justifyContent: 'center',

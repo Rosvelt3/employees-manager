@@ -6,7 +6,7 @@ import App from './App';
 import { ThemeProvider } from '@material-ui/core';
 import theme from './Theme';
 
-//Get the Department and Employee service component and insert int in the app
+//Get the Department and Employee service component and insert it in the app
 import Employee, { EmployeeContext } from './hoc/Employees';
 import Department, { DepartmentContext } from './hoc/Departments';
 

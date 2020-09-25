@@ -55,7 +55,7 @@ const Theme = () => {
   const history = useHistory();
 
   const handleSave = () => {
-    //Set selected theme and reload page to make changes take effect
+    //Set selected theme on localStorage and reload page to make changes take effect
     localStorage.setItem("theme", selectedColor);
     history.go("/theme");
   }
@@ -70,6 +70,7 @@ const Theme = () => {
           <RadioGroup row value={selectedColor} onChange={(e) => setSelectedColor(e.target.value)}>
             <Grid className={classes.colorContainer} container spacing={1}>
               {
+                //Map colors and add radio buttons and color avatar
                 colors.map(color => (
                   <Grid item className={classes.colorItem} key={color.name} xs={12} sm={6} md={2}>
                     <Avatar style={{ backgroundColor: color.value, cursor: 'pointer' }} onClick={() => setSelectedColor(color.value)}> </Avatar>

@@ -128,6 +128,7 @@ const UpdateDepartment = ({ department }) => {
           </Grid>
           <Grid item xs={12}>
             {
+              //If Loading show circular progress instead of button
               loading ?
                 <CircularProgress color="primary" />
                 :
@@ -136,6 +137,10 @@ const UpdateDepartment = ({ department }) => {
           </Grid>
         </Grid>
       </form>
+
+      {
+        /*Success Dialog*/
+      }
       <Dialog className={classes.dialog} open={showDialog}>
         <DialogTitle>Department updated succesfully</DialogTitle>
         <DialogContent>

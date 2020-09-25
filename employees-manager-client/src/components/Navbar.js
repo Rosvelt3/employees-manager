@@ -56,16 +56,28 @@ const Navbar = () => {
           <Typography variant="h6" className={classes.title}>
             Employees Manager
           </Typography>
+
+          {
+            /*Navigation buttons (high resolution screens)*/
+          }
           <div className={classes.buttons}>
             {menuOptions.map(menuOption => (
               <Button key={menuOption.text} component={Link} to={menuOption.link} className={classes.button} color="inherit" startIcon={menuOption.icon}>{menuOption.text}</Button>
             ))}
           </div>
+
+          {
+            /*Show drawer when this button is clicked*/
+          }
           <IconButton edge="end" onClick={() => setShowDrawer(true)} className={classes.menuButton} color="inherit" aria-label="menu">
             <Menu />
           </IconButton>
         </Toolbar>
       </Container>
+
+      {
+        /*Navigation drawer (low resolution screens)*/
+      }
       <Drawer anchor="left" open={showDrawer} onClose={() => setShowDrawer(false)} >
         <List>
           {menuOptions.map(menuOption => (

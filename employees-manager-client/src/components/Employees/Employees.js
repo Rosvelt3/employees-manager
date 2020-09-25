@@ -57,6 +57,10 @@ const Employees = ({ employee }) => {
   return (
     <Container className={classes.root}>
       <EmployeesTable employees={employees} deleteEmployee={deleteEmployee} />
+
+      {
+        /*Success Dialog*/
+      }
       <Dialog className={classes.dialog} open={showDialog}>
         <DialogTitle>Employee deleted succesfully</DialogTitle>
         <DialogContent>

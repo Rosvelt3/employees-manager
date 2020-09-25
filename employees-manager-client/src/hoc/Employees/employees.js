@@ -1,3 +1,4 @@
+//Employee service class
 class Employees {
   API = process.env.REACT_APP_API + "/employees";
 

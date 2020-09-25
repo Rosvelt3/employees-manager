@@ -59,6 +59,7 @@ const AddEmployee = ({ employee, department }) => {
   const history = useHistory();
 
   useEffect(() => {
+    //Fetch departments to use in the select field
     const fetchDepartments = async () => {
       const result = await department.getAllDepartments();
 
@@ -77,6 +78,7 @@ const AddEmployee = ({ employee, department }) => {
     try {
       await employee.addSingleEmployee(idNumber, name, lastName, phone, selectedDepartment);
       setLoading(false);
+      //If everything is right empty the fields
       emptyFields();
       setShowDialog(true);
     }
@@ -128,6 +130,9 @@ const AddEmployee = ({ employee, department }) => {
 
   return (
     <Container>
+      {
+        /*Form with validation props and validation text*/
+      }
       <form onSubmit={handleSubmit} noValidate autoComplete="off" className={classes.root}>
         <Grid container component={Card} className={classes.card}>
           <Grid item xs={12}>
@@ -164,6 +169,7 @@ const AddEmployee = ({ employee, department }) => {
           </Grid>
           <Grid item xs={12}>
             {
+              //If Loading show circular progress instead of button
               loading ?
                 <CircularProgress color="primary" />
                 :
@@ -173,6 +179,9 @@ const AddEmployee = ({ employee, department }) => {
         </Grid>
       </form>
 
+      {
+        /*Success Dialog*/
+      }
       <Dialog className={classes.dialog} open={showDialog}>
         <DialogTitle>Employee added succesfully</DialogTitle>
         <DialogContent>
@@ -185,6 +194,9 @@ const AddEmployee = ({ employee, department }) => {
         </DialogActions>
       </Dialog>
 
+      {
+        /*Error Dialog*/
+      }
       <Dialog className={classes.dialog} open={showErrorDialog}>
         <DialogTitle>There are no departments to add employees to</DialogTitle>
         <DialogContent>
