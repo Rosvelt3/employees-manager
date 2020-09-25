@@ -19,7 +19,10 @@ const InfoCard = ({ label, content, icon }) => {
         <CardContent>
           <Typography color="textSecondary" gutterBottom>{label}</Typography>
           <Typography className={classes.content} variant="h5" component="h2">
-            {content.length > 11 ? content.substr(0, 11) + "..." : content}
+            {
+              //Only show 11 characters of content
+              content.length > 11 ? content.substr(0, 11) + "..." : content
+            }
           </Typography>
         </CardContent>
       </div>

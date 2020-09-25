@@ -55,6 +55,7 @@ const Theme = () => {
   const history = useHistory();
 
   const handleSave = () => {
+    //Set selected theme and reload page to make changes take effect
     localStorage.setItem("theme", selectedColor);
     history.go("/theme");
   }

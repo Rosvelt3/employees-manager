@@ -47,6 +47,7 @@ const DepartmentsTable = ({ departments, handleDelete }) => {
         </TableHead>
         <TableBody>
           {departments.length !== 0 ? departments
+            //Slice employees array by the maximum rows per page
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map(department => (
               <TableRow key={department._id}>

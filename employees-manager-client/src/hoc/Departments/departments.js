@@ -5,7 +5,7 @@ class Departments {
     try {
       const response = await fetch(`${this.API}`);
       if (response.status !== 200) {
-        return false;
+        throw new Error("Error getting departments");
       }
       const departments = await response.json();
       return departments.data;

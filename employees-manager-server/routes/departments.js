@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const advancedResults = require('../middleware/advancedResults');
 
+//Get controllers
 const {
   getDepartments,
   getDepartment,

@@ -54,6 +54,7 @@ const UpdateDepartment = ({ department }) => {
   useEffect(() => {
     const fetchDepartment = async () => {
       try {
+        //Fill form with department data
         const result = await department.getSingleDepartment(id);
         setName(result.name);
         setDescription(result.description);
@@ -61,6 +62,7 @@ const UpdateDepartment = ({ department }) => {
         setPhoneExtension(result.phoneExtension);
       }
       catch (err) {
+        //404 error if department not fond
         history.push("/not-found");
       }
     };

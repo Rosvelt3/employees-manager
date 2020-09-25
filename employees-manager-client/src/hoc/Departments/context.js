@@ -6,6 +6,7 @@ export const withDepartment = Component => props => (
   <DepartmentContext.Consumer>
     {department => {
       return (
+        //Return new component with department service inserted
         <Component {...props} department={department} />
       )
     }}

@@ -5,7 +5,7 @@ class Employees {
     try {
       const response = await fetch(`${this.API}`);
       if (response.status !== 200) {
-        return false;
+        throw new Error("Error getting employees");
       }
       const employees = await response.json();
       return employees.data;

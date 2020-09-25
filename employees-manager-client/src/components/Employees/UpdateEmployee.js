@@ -61,6 +61,7 @@ const UpdateEmployees = ({ employee, department }) => {
   useEffect(() => {
     const fetchEmployee = async () => {
       try {
+        //Fill form with employee data
         const result = await employee.getSingleEmployee(id);
         setIdNumber(result.idNumber);
         setName(result.name);
@@ -69,6 +70,7 @@ const UpdateEmployees = ({ employee, department }) => {
         setSelectedDepartment(result.department);
       }
       catch (err) {
+        //404 error if employee not fond
         history.push("/not-found");
       }
     };

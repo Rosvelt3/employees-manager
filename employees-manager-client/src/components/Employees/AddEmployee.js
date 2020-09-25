@@ -98,6 +98,7 @@ const AddEmployee = ({ employee, department }) => {
   const validate = () => {
     const tempValidationErrors = {};
 
+    //Validation checks for empty fields and bad formatting
     if (idNumber.trim()) {
       if (idNumber.match(/^[0-9]{11}$/) === null) tempValidationErrors.idNumber = "ID Number must be 11 digits (no hyphens)";
     } else tempValidationErrors.idNumber = "Fill this field";
@@ -113,6 +114,8 @@ const AddEmployee = ({ employee, department }) => {
     if (!selectedDepartment.trim()) tempValidationErrors.selectedDepartment = "Fill this field";
 
     setValidationErrors(tempValidationErrors);
+
+    //If there are validation errors return false
     return Object.keys(tempValidationErrors).length === 0;
   }
 

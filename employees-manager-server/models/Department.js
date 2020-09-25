@@ -31,6 +31,7 @@ const DepartmentSchema = new mongoose.Schema({
   },
 });
 
+//Before deleting any department delete all employes asociated with the department
 DepartmentSchema.pre('remove', async function (next) {
   await Employee.deleteMany({ department: this._id });
   next();

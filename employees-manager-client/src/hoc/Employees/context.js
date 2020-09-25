@@ -6,6 +6,7 @@ export const withEmployee = Component => props => (
   <EmployeeContext.Consumer>
     {employee => {
       return (
+        //Return new component with employee service inserted
         <Component {...props} employee={employee} />
       )
     }}

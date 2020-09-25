@@ -1,7 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
+//Some defaults for the styles of the app
 import CssBaseline from '@material-ui/core/CssBaseline';
 
+//Import the components for the different routes
 import Home from './components/Home/Home';
 import Employees from './components/Employees/Employees';
 import AddEmployee from './components/Employees/AddEmployee';

@@ -3,7 +3,6 @@ import { Button, IconButton, makeStyles, Paper, Table, TableBody, TableCell, Tab
 import { Add, Delete, Edit } from '@material-ui/icons';
 import { Link, useHistory } from 'react-router-dom';
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: 20
@@ -56,6 +55,7 @@ const EmployeesTable = ({ employees, deleteEmployee }) => {
         <TableBody>
           {employees.length !== 0 ? employees
             .filter(employee => {
+              //Filter employees by department search term
               if (searchText) {
                 const curatedSearchTerm = searchText.trim().toLowerCase();
                 const curatedDepartmentName = employee.department.name.trim().toLowerCase();
@@ -64,6 +64,7 @@ const EmployeesTable = ({ employees, deleteEmployee }) => {
                 return true;
               }
             })
+            //Slice employees array by the maximum rows per page
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             .map(employee => (
               <TableRow key={employee._id}>

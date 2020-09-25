@@ -72,6 +72,7 @@ const AddDepartment = ({ department }) => {
   const validate = () => {
     const tempValidationErrors = {};
 
+    //Validation checks for empty fields and bad formatting
     if (!name.trim()) tempValidationErrors.name = "Fill this field";
 
     if (!description.trim()) tempValidationErrors.description = "Fill this field";
@@ -83,6 +84,8 @@ const AddDepartment = ({ department }) => {
     } else tempValidationErrors.phoneExtension = "Fill this field";
 
     setValidationErrors(tempValidationErrors);
+
+    //If there are validation errors return false
     return Object.keys(tempValidationErrors).length === 0;
   }
 

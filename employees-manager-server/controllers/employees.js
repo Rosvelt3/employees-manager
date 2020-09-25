@@ -2,16 +2,16 @@ const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
 const Employee = require('../models/Employee');
 
-// @desc Get all employees
-// @route GET /api/v1/employees
-// @access Public
+// @desc    Get all employees
+// @route   GET /api/v1/employees
+// @access  Public
 exports.getEmployees = asyncHandler(async (req, res, next) => {
   res.status(200).json(res.advancedResults);
 });
 
-// @desc Get single employee
-// @route GET /api/v1/employees/:id
-// @access Public
+// @desc    Get single employee
+// @route   GET /api/v1/employees/:id
+// @access  Public
 exports.getEmployee = asyncHandler(async (req, res, next) => {
   const employee = await Employee.findById(req.params.id);
 

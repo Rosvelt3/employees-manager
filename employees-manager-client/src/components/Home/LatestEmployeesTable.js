@@ -11,8 +11,6 @@ const useStyles = makeStyles((theme) => ({
 const LatestEmployeesTable = ({ employees }) => {
   const classes = useStyles();
 
-  if (!employees) return false;
-
   return (
     <TableContainer className={classes.root} component={Paper} elevation={2}>
       <Typography variant="h5" component="h2" color="primary">

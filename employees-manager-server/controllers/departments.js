@@ -2,16 +2,16 @@ const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
 const Department = require('../models/Department');
 
-// @desc Get all departments
-// @route GET /api/v1/departments
-// @access Public
+// @desc    Get all departments
+// @route   GET /api/v1/departments
+// @access  Public
 exports.getDepartments = asyncHandler(async (req, res, next) => {
   res.status(200).json(res.advancedResults);
 });
 
-// @desc Get single department
-// @route GET /api/v1/departments/:id
-// @access Public
+// @desc    Get single department
+// @route   GET /api/v1/departments/:id
+// @access  Public
 exports.getDepartment = asyncHandler(async (req, res, next) => {
   const department = await Department.findById(req.params.id);
 
