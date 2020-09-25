@@ -9,12 +9,20 @@ const useStyles = makeStyles((theme) => ({
   },
   row: {
     display: 'flex',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    [theme.breakpoints.down('xs')]:{
+      flexFlow: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
   },
   bottomRow: {
     display: 'flex',
     justifyContent: 'space-between',
     marginTop: 20,
+    [theme.breakpoints.down('xs')]:{
+      flexFlow: 'column',
+    },
   },
   deleteAction: {
     color: theme.palette.error.main,

@@ -57,16 +57,16 @@ const Home = ({ employee, department }) => {
   return (
     <Container className={classes.root}>
       <Grid container spacing={3}>
-        <Grid item xs={3}>
+        <Grid item xs={12} sm={6} md={3}>
           <InfoCard label="Total Employees" content={employees.length} icon={<Group className={classes.infoCardIcon} color="primary" />} />
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={12} sm={6} md={3}>
           <InfoCard label="Total Departments" content={departments.length} icon={<Business className={classes.infoCardIcon} color="primary" />} />
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={12} sm={6} md={3}>
           <InfoCard label="Last Employee Added" content={lastEmployeeAdded} icon={<Person className={classes.infoCardIcon} color="primary" />} />
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={12} sm={6} md={3}>
           <InfoCard label="Last Department Added" content={lastDepartmentAdded} icon={<Business className={classes.infoCardIcon} color="primary" />} />
         </Grid>
       </Grid>
