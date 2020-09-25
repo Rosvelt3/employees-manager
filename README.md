@@ -42,7 +42,7 @@ The `employees-manager-server` folder contains:
 # How to run this app
 
 ## Prerequisites
-+ This repository downloaded and extracted from the ZIP archive, you can get it from [here][https://github.com/isaias005/employees-manager/archive/master.zip].
-+ NodeJS and NPM installed, you can get them from [here][https://nodejs.org/]. Download and install.
++ This repository downloaded and extracted from the ZIP archive, you can get it from [here](https://github.com/isaias005/employees-manager/archive/master.zip).
++ NodeJS and NPM installed, you can get them from [here](https://nodejs.org/). Download and install.
 
 ## Explanation
