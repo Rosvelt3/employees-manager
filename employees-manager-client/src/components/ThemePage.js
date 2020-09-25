@@ -72,7 +72,7 @@ const Theme = () => {
               {
                 colors.map(color => (
                   <Grid item className={classes.colorItem} key={color.name} xs={2}>
-                    <Avatar style={{ backgroundColor: color.value }}> </Avatar>
+                    <Avatar style={{ backgroundColor: color.value, cursor: 'pointer' }} onClick={() => setSelectedColor(color.value)}> </Avatar>
                     <br />
                     <Radio style={{ color: color.value }} value={color.value} label={color.name} ></Radio>
                   </Grid>
